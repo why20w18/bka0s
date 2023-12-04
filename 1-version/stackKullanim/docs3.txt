@@ -5,20 +5,21 @@ docs3
 	1.1->0x8000 adresi stack'in baslangic adresi belirlendi
 	1.2->bu değeri decimal çevirip 32768 değerini buluruz
 	1.3->32768 - 2 = 32766 decimal değerini verir hexa olarak 0x7FFE'dir
-	1.4->ilk atılan değeri yani en alttaki değeri buluruz 's'
+	1.4->ilk atılan değeri yani en alttaki değeri buluruz 'b'
 	1.5->bu değeri AL registerina atayarak bastiririz
 -------------------------------------------------------------------------------------
 bootbir'deki kod makine diline çevrilmeden onceki kisim ###boot.asm dosyasinda burasi silindi###
+bootbir'deki push sirasiyla bootiki dosyasindaki sira farkli dikkat edin (boot.asm dosyasi bootiki'yi gosterir kaynak koda bakin)
 
 mov ah,0x0e
-mov bp,0x8000
+mov bp,0x8000 ;base pointer stack segmenti baslangicini gosteriyor
 mov si,bp
 
-push 's'
-push 'O'
-push 'a'
-push 'k'
 push 'b'
+push 'k'
+push 'a'
+push 'O'
+push 's'
 
 mov al,[0x7ffe] 
 
