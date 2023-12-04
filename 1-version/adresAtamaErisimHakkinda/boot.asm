@@ -1,4 +1,4 @@
-;bkaOS BOOTLOADER 0.3
+;bkaOS BOOTLOADER 0.2.1
 
 
 mov ah,0x0e ;0eh
