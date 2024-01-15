@@ -1,0 +1,75 @@
+#bka0s#
+1-kernel yazmaya baslamadan once isletim sistemi diskten okuma yapabilmeli
+2-daha once her seyi boot.asm icine yazmistik simdi bunlari farkli dosyalarda tutacagiz
+3-farkli dosyalarida main dosyamizdan cagiracagiz
+4-fonksiyon cagirmak farkli bir labela atlamak gibi dusunulur
+
+iki farkli dosyam olsun 
+
+bootMain.asm
+bootPrint.asm
+
+ben eger bootMain.asm icinde bootPrint.asm dosyasi icinde bulunan fonksiyonlara erismek istiyorsam 
+%include "bootPrint.asm" 
+seklinde satir eklemem gerekir
+
+string dizisini tanimlarken asagidaki gibi yazilir
+
+db "bkaOs Baslatildi",0 
+
+sondaki 0 ifadesi dizinin sonunu belirtir aslinda ascii tablosundaki 0.degere referanstir NUL ifadesidir
+
+_____________bootPrint.asm_________________
+
+ekrana dizi yazdirma fonksiyonu icerir
+yeni satir olusturma fonksiyonu icerir
+
+KOMUTLAR
++pusha > tum registerlari dogrudan stacke gonderir > neden ? > fonksiyon icindeki degerleri sonradan kullanabilmek icin
++popa  > tum registerlari dogrudan stackten ceker
+
+ZERO FLAG KONTROLU: zero flagi kontrol ederek eger dizinin sonuna geldiysek , zf=0 olur burada je kullanmak mantiklidir loop ile degil
+kendimiz bir dongu olusturuyoruz
+
+genelde karakter bastirmalari AL registeri uzerinden yapilir
+
+-ASCII KODUNUN HEXADECIMAL GOSTERIMIYLE ATAMA-
+0x0a > alt satira iner \n gibi fakat imlec asagi iner > linefeed
+0x0d > imleci satirin basina ceker \r > carriage return
+
+____________bootMain.asm_____________
+
+boot sektorun ram uzerindeki konumu 7c00 konumudur bootMain.asm bizim bootloaderimiz oldugundan dogrudan calisacagi konumu buraya cekeriz
+
+org = origin = koken
+
+%include ile bootloaderimiza diger dosyayi eklediysek artik oradaki fonksiyonlara erisebiliriz ekrana yazdirmak istedigimiz herhangi bir
+metni dogrudan 
+
+call printYazdir diyerek tabi biz bx registerindaki degeri bastiracak sekilde ayarladigimizdan mov bx,LABEL diyerek dogrudan bastiririz
+
+
+___DERLEME ASAMASI__
+
+nasm kullanarak derleyecegiz binary olarak derleyecegiz
+
+-f parametresi = FORMAT = bin
+
+nasm formatlari = win32 - win64 - elf32 - elf64
+
+-o ciktimizin adi = bootloader olacak
+
+nasm -f bin bootMain.asm -o bootloader > ciktiyi cat diyerek goremeyiz xxd bootloader dersek binary formati gosterir
+
+
+bootloader ekrana sadece b harfini basti 2.commit: sebep ?
+
+sebep bootPrint.asm dosyasinda bx registerini arttirmayi ve loopu tekrarlamayi unutmusum cozuldu
+
+
+
+
+
+
+
+

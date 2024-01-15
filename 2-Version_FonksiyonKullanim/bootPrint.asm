@@ -16,6 +16,8 @@ je done
 mov ah,0x0e ;tty hizmeti=video hizmetini istedim
 int 10h ;bios kesmesini cagirdim SeaBIOS
 
+inc bx
+jmp start ;dongu saglamak icin geri donsun
 
 done:
 popa
