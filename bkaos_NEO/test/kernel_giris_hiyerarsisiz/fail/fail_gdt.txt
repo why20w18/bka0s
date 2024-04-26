@@ -1,0 +1,7 @@
+
+
+	+GDT bellek Privileges levellarinida iceren 8 bitlik binary
+	flagleri duzgun ayarlayamayince bkaosNEO 16 bitte takili kaldi
+	ve 32 bite gecis yapamadi
+
+	
